@@ -1,21 +1,26 @@
 import requests
 
 
+class AvatarNotFoundException(BaseException):
+    pass
+
+
 def avatar(usuario):
     """Retorna o link com avatar do usuário
     :param usuario: str com nome do usuario
     :return: str
     """
 
-    resposta = ""
     try:
-        resp = requests.get(f'https://api.github.com/users/{usuario}')
-        resposta = resp.json()['avatar_url']
-    except KeyError:
-        resposta = "Não encontrado"
-
-    return resposta
+        r = requests.get(f'https://api.github.com/users/{usuario}')
+        return r.json()['avatar_url']
+    except Exception as err:
+        print(err)
+        raise AvatarNotFoundException()
 
 
 if __name__ == '__main__':
-    print(avatar('fredericoaraujo'))
+    try:
+        print(avatar('renzon'))
+    except AvatarNotFoundException:
+        print("Avatar não encontrado.")
