@@ -8,9 +8,6 @@ Instalar o flake8
 Configurar o travis e rodar flake8
 """
 
-
-
-
 import requests
 import xmltodict
 
